@@ -47,7 +47,7 @@ import {
 const SELL_AMOUNT = '0.1';
 const TESTDATA_DIR = path.resolve(__dirname, 'testdata/inputpermit');
 
-describe('RainbowRouter Aggregators', function () {
+describe('SwypeRouter Aggregators', function () {
   let swapETHtoToken: any, swapTokentoETH: any, swapTokentoToken: any;
 
   before(async () => {
@@ -63,7 +63,7 @@ describe('RainbowRouter Aggregators', function () {
       ],
     });
 
-    const { signer, rainbowRouterInstance } = await init();
+    const { signer, SwypeRouterInstance } = await init();
 
     swapETHtoToken = async (
       source: Sources,
@@ -125,7 +125,7 @@ describe('RainbowRouter Aggregators', function () {
         ethers.utils.formatEther(sellAmountWei)
       );
 
-      const swapTx = await rainbowRouterInstance.fillQuoteEthToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteEthToToken(
         quote.buyTokenAddress,
         quote.to,
         quote.data,
@@ -220,7 +220,7 @@ describe('RainbowRouter Aggregators', function () {
         const permitSignature = await signPermit(
           tokenContract,
           signer.address,
-          rainbowRouterInstance.address,
+          SwypeRouterInstance.address,
           MAX_INT,
           deadline,
           1
@@ -232,7 +232,7 @@ describe('RainbowRouter Aggregators', function () {
         );
 
         Logger.log(`Executing swap...`);
-        swapTx = await rainbowRouterInstance.fillQuoteTokenToEthWithPermit(
+        swapTx = await SwypeRouterInstance.fillQuoteTokenToEthWithPermit(
           quote.sellTokenAddress,
           quote.to,
           quote.data,
@@ -244,7 +244,7 @@ describe('RainbowRouter Aggregators', function () {
           }
         );
       } else {
-        swapTx = await rainbowRouterInstance.fillQuoteTokenToEth(
+        swapTx = await SwypeRouterInstance.fillQuoteTokenToEth(
           quote.sellTokenAddress,
           quote.to,
           quote.data,
@@ -355,7 +355,7 @@ describe('RainbowRouter Aggregators', function () {
       const permitSignature = await signPermit(
         tokenContract,
         signer.address,
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         MAX_INT,
         deadline,
         1
@@ -366,7 +366,7 @@ describe('RainbowRouter Aggregators', function () {
       Logger.log(`Executing swap...`);
 
       const swapTx =
-        await rainbowRouterInstance.fillQuoteTokenToTokenWithPermit(
+        await SwypeRouterInstance.fillQuoteTokenToTokenWithPermit(
           quote.sellTokenAddress,
           quote.buyTokenAddress,
           quote.to,

@@ -20,11 +20,11 @@ async function main() {
   console.log('Owner address', owner.address);
 
   try {
-    const RainbowRouter = await ethers.getContractFactory('RainbowRouter');
-    const rainbowRouterInstance = await RainbowRouter.deploy();
-    console.log('Waiting for tx to confirm', rainbowRouterInstance.hash);
-    const tx = await rainbowRouterInstance.deployed();
-    console.log('Contract deployed at address', rainbowRouterInstance.address);
+    const SwypeRouter = await ethers.getContractFactory('SwypeRouter');
+    const SwypeRouterInstance = await SwypeRouter.deploy();
+    console.log('Waiting for tx to confirm', SwypeRouterInstance.hash);
+    const tx = await SwypeRouterInstance.deployed();
+    console.log('Contract deployed at address', SwypeRouterInstance.address);
     if (tx.deployTransaction.blockNumber) {
       const blockInfo = await ethers.provider.send('eth_getBlockByNumber', [
         ethers.utils.hexValue(tx.deployTransaction.blockNumber),

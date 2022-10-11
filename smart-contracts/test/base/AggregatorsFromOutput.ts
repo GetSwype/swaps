@@ -29,7 +29,7 @@ import {
 
 const TESTDATA_DIR = path.resolve(__dirname, 'testdata/output');
 
-describe('RainbowRouter Aggregators', function () {
+describe('SwypeRouter Aggregators', function () {
   let swapWETHtoDAIFromOutput: any,
     swapDAItoWETHFromOutput: any,
     swapETHtoDAIFromOutput: any,
@@ -49,9 +49,9 @@ describe('RainbowRouter Aggregators', function () {
       ],
     });
 
-    const { signer, wethContract, daiContract, rainbowRouterInstance } =
+    const { signer, wethContract, daiContract, SwypeRouterInstance } =
       await init();
-    currentVaultAddress = rainbowRouterInstance.address;
+    currentVaultAddress = SwypeRouterInstance.address;
 
     // FROM OUTPUT
     swapWETHtoDAIFromOutput = async (
@@ -110,7 +110,7 @@ describe('RainbowRouter Aggregators', function () {
 
       // Grant the contact an allowance to spend our WETH.
       const approveTx = await wethContract.approve(
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         amountToWrapWei
       );
 
@@ -119,7 +119,7 @@ describe('RainbowRouter Aggregators', function () {
 
       Logger.log(`Executing swap...`, JSON.stringify(quote, null, 2));
 
-      const swapTx = await rainbowRouterInstance.fillQuoteTokenToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteTokenToToken(
         quote.sellTokenAddress,
         quote.buyTokenAddress,
         quote.to,
@@ -202,14 +202,14 @@ describe('RainbowRouter Aggregators', function () {
 
       // Grant the allowance target an allowance to spend our DAI.
       const approveTx = await daiContract.approve(
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         initialDaiBalance
       );
 
       await approveTx.wait();
 
       Logger.log(`Executing swap...`);
-      const swapTx = await rainbowRouterInstance.fillQuoteTokenToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteTokenToToken(
         quote.sellTokenAddress,
         quote.buyTokenAddress,
         quote.to,
@@ -293,7 +293,7 @@ describe('RainbowRouter Aggregators', function () {
 
       Logger.log(`Executing swap...`, JSON.stringify(quote, null, 2));
 
-      const swapTx = await rainbowRouterInstance.fillQuoteEthToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteEthToToken(
         quote.buyTokenAddress,
         quote.to,
         quote.data,
@@ -373,14 +373,14 @@ describe('RainbowRouter Aggregators', function () {
 
       // Grant the allowance target an allowance to spend our DAI.
       const approveTx = await daiContract.approve(
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         initialDaiBalance
       );
 
       await approveTx.wait();
 
       Logger.log(`Executing swap...`);
-      const swapTx = await rainbowRouterInstance.fillQuoteTokenToEth(
+      const swapTx = await SwypeRouterInstance.fillQuoteTokenToEth(
         quote.sellTokenAddress,
         quote.to,
         quote.data,

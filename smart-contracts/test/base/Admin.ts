@@ -27,8 +27,8 @@ describe('Admin', function () {
       ],
     });
 
-    const { rainbowRouterInstance, wethContract } = await init();
-    instance = rainbowRouterInstance;
+    const { SwypeRouterInstance, wethContract } = await init();
+    instance = SwypeRouterInstance;
     weth = wethContract;
   });
 
@@ -215,7 +215,7 @@ describe('Admin', function () {
     ).to.be.revertedWith('ONLY_OWNER');
   });
 
-  it('Should revert if an attacker attempts "Approval snatching" from a victim that previously approved an ERC20 token on RainbowRouter', async function () {
+  it('Should revert if an attacker attempts "Approval snatching" from a victim that previously approved an ERC20 token on SwypeRouter', async function () {
     const amount = '10000000';
     const attackerSellAmount = '1';
     const accounts = await ethers.getSigners();
@@ -227,7 +227,7 @@ describe('Admin', function () {
       value: amount,
     });
 
-    // 2 - Approve the Rainbow contract to transfer WETH from the victim's account
+    // 2 - Approve the Swype contract to transfer WETH from the victim's account
     await weth.connect(victim).approve(instance.address, amount);
 
     // 3 - Get some WETH to the attacker
@@ -235,7 +235,7 @@ describe('Admin', function () {
       value: attackerSellAmount,
     });
 
-    // 4 - Approve the Rainbow contract to transfer WETH from the attacker's account
+    // 4 - Approve the Swype contract to transfer WETH from the attacker's account
     await weth.connect(attacker).approve(instance.address, attackerSellAmount);
 
     // WETH.transferFrom(victim, attacker, amount);
@@ -278,7 +278,7 @@ describe('Admin', function () {
       value: attackerSellAmount,
     });
 
-    // 4 - Approve the Rainbow contract to transfer WETH from the attacker's account
+    // 4 - Approve the Swype contract to transfer WETH from the attacker's account
     await weth.connect(attacker).approve(instance.address, attackerSellAmount);
 
     // WETH.transferFrom(instance.address, attacker, amount);

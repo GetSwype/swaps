@@ -5,7 +5,7 @@ import "@rari-capital/solmate/src/utils/SafeTransferLib.sol";
 import "@rari-capital/solmate/src/tokens/ERC20.sol";
 import "../libraries/PermitHelper.sol";
 
-/// @title Rainbow base aggregator contract
+/// @title Swype base aggregator contract
 contract BaseAggregator {
     /// @dev Used to prevent re-entrancy
     uint256 internal status;

@@ -55,21 +55,21 @@ const init = async () => {
   const signer = (await ethers.getSigners())[0];
   Logger.log('User address', await signer.address);
 
-  const RainbowRouter = await ethers.getContractFactory('RainbowRouter');
-  const rainbowRouterInstance = await RainbowRouter.deploy();
-  await rainbowRouterInstance.deployed();
-  Logger.log('Contract address', rainbowRouterInstance.address);
+  const SwypeRouter = await ethers.getContractFactory('SwypeRouter');
+  const SwypeRouterInstance = await SwypeRouter.deploy();
+  await SwypeRouterInstance.deployed();
+  Logger.log('Contract address', SwypeRouterInstance.address);
 
-  await rainbowRouterInstance.updateSwapTargets(MAINNET_ADDRESS_1INCH, true);
-  await rainbowRouterInstance.updateSwapTargets(MAINNET_ADDRESS_0X, true);
+  await SwypeRouterInstance.updateSwapTargets(MAINNET_ADDRESS_1INCH, true);
+  await SwypeRouterInstance.updateSwapTargets(MAINNET_ADDRESS_0X, true);
 
   const getEthVaultBalance = () =>
-    ethers.provider.getBalance(rainbowRouterInstance.address);
+    ethers.provider.getBalance(SwypeRouterInstance.address);
 
   return {
     daiContract,
     getEthVaultBalance,
-    rainbowRouterInstance,
+    SwypeRouterInstance,
     signer,
     wethContract,
   };

@@ -32,7 +32,7 @@ import {
 const SELL_AMOUNT = '0.1';
 const TESTDATA_DIR = path.resolve(__dirname, 'testdata/input');
 
-describe('RainbowRouter Aggregators', function () {
+describe('SwypeRouter Aggregators', function () {
   let swapTokenToToken: any,
     swapETHtoToken: any,
     swapTokenToETH: any,
@@ -51,8 +51,8 @@ describe('RainbowRouter Aggregators', function () {
       ],
     });
 
-    const { signer, rainbowRouterInstance, getEthVaultBalance } = await init();
-    currentVaultAddress = rainbowRouterInstance.address;
+    const { signer, SwypeRouterInstance, getEthVaultBalance } = await init();
+    currentVaultAddress = SwypeRouterInstance.address;
 
     swapTokenToToken = async (
       source: Sources,
@@ -63,11 +63,11 @@ describe('RainbowRouter Aggregators', function () {
     ) => {
       const initialVaultInputTokenBalance = await getVaultBalanceForToken(
         inputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
       const initialVaultOutputTokenBalance = await getVaultBalanceForToken(
         outputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
 
       const inputAssetContract = await ethers.getContractAt(
@@ -146,7 +146,7 @@ describe('RainbowRouter Aggregators', function () {
 
       // Grant the contact an allowance to spend our token.
       const approveTx = await inputAssetContract.approve(
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         sellAmountWei
       );
 
@@ -154,7 +154,7 @@ describe('RainbowRouter Aggregators', function () {
       Logger.log(`Approved token allowance of `, sellAmountWei.toString());
 
       Logger.log(`Executing swap...`);
-      const swapTx = await rainbowRouterInstance.fillQuoteTokenToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteTokenToToken(
         quote.sellTokenAddress,
         quote.buyTokenAddress,
         quote.to,
@@ -191,11 +191,11 @@ describe('RainbowRouter Aggregators', function () {
 
       const finalVaultInputTokenBalance = await getVaultBalanceForToken(
         inputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
       const finalVaultOutputTokenBalance = await getVaultBalanceForToken(
         outputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
 
       expect(finalInputAssetBalance.lt(initialInputAssetBalance)).to.be.equal(
@@ -224,7 +224,7 @@ describe('RainbowRouter Aggregators', function () {
     ) => {
       const initialVaultOutputTokenBalance = await getVaultBalanceForToken(
         outputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
 
       const tokenContract = await ethers.getContractAt(
@@ -285,7 +285,7 @@ describe('RainbowRouter Aggregators', function () {
       );
       Logger.log('calldata is: ', quote.data);
       Logger.log('target is: ', quote.to);
-      const swapTx = await rainbowRouterInstance.fillQuoteEthToToken(
+      const swapTx = await SwypeRouterInstance.fillQuoteEthToToken(
         quote.buyTokenAddress,
         quote.to,
         quote.data,
@@ -322,7 +322,7 @@ describe('RainbowRouter Aggregators', function () {
 
       const finalVaultOutputTokenBalance = await getVaultBalanceForToken(
         outputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
 
       expect(tokenBalanceSigner.gt(initialTokenBalance)).to.be.equal(true);
@@ -345,7 +345,7 @@ describe('RainbowRouter Aggregators', function () {
     ) => {
       const initialVaultInputTokenBalance = await getVaultBalanceForToken(
         inputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
       const tokenContract = await ethers.getContractAt(
         inputAsset.toLowerCase() === WETH_ADDRESS.toLowerCase()
@@ -400,7 +400,7 @@ describe('RainbowRouter Aggregators', function () {
 
       // Grant the allowance target an allowance to spend our WETH.
       const approveTx = await tokenContract.approve(
-        rainbowRouterInstance.address,
+        SwypeRouterInstance.address,
         sellAmountWei
       );
 
@@ -410,7 +410,7 @@ describe('RainbowRouter Aggregators', function () {
       Logger.log('calldata is: ', quote.data);
       Logger.log('target is: ', quote.to);
 
-      const swapTx = await rainbowRouterInstance.fillQuoteTokenToEth(
+      const swapTx = await SwypeRouterInstance.fillQuoteTokenToEth(
         quote.sellTokenAddress,
         quote.to,
         quote.data,
@@ -449,7 +449,7 @@ describe('RainbowRouter Aggregators', function () {
 
       const finalVaultInputTokenBalance = await getVaultBalanceForToken(
         inputAsset,
-        rainbowRouterInstance.address
+        SwypeRouterInstance.address
       );
 
       expect(tokenBalanceSigner).to.be.equal('0');
